@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/CHI/static/css/main.0543bb81.css",
-    "main.js": "/CHI/static/js/main.deb90cb2.js",
+    "main.css": "/CHI/static/css/main.43021b5c.css",
+    "main.js": "/CHI/static/js/main.e373539f.js",
     "index.html": "/CHI/index.html",
-    "main.0543bb81.css.map": "/CHI/static/css/main.0543bb81.css.map",
-    "main.deb90cb2.js.map": "/CHI/static/js/main.deb90cb2.js.map"
+    "main.43021b5c.css.map": "/CHI/static/css/main.43021b5c.css.map",
+    "main.e373539f.js.map": "/CHI/static/js/main.e373539f.js.map"
   },
   "entrypoints": [
-    "static/css/main.0543bb81.css",
-    "static/js/main.deb90cb2.js"
+    "static/css/main.43021b5c.css",
+    "static/js/main.e373539f.js"
   ]
 }
