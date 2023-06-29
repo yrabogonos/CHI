@@ -1,0 +1,42 @@
+.modalWindow{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+  
+    .modal-wrap{
+        // height: 400px;
+        .modal-body{
+            background-color: white;
+            height: 100%;
+            // width: 900px;
+            border-radius: 20px;
+            padding: 50px;
+            .modal-cntrls{
+                margin-top: 20px;
+                justify-content: center;
+                .modal-btn{
+                    border: none;
+                    color: white;
+                    padding: 5px 20px;
+                }
+            }
+        }
+
+    }
+}
+.btn-yes{
+    background-color: green;
+}
+.btn-no{
+    background-color: red;
+}
+.modalWindow.active{
+    transform: scale(1);
+}

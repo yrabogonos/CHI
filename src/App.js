@@ -1,9 +1,10 @@
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
-import Table from './Components/table';
-import { useEffect } from 'react';
+import Table from './Components/Table/table';
+import { useEffect, useState } from 'react';
 import store from './Redux/redux-store';
 import { setInitialStateActionCreator, setPageActionCreator } from './Redux/cars-reducers';
+import ModalWindow from './Components/modal/modal';
 
 const STORAGE = 'cars';
 
@@ -31,6 +32,10 @@ const fetchData = async() =>{
 
 function App() {
 
+  const [modalActive, SetModalActive] = useState(false);
+  const [modalMode, SetModalMode] = useState();
+ 
+
   const loadData = async() => {
     const response = await fetchData();
     const cars = (JSON.parse(localStorage.getItem(STORAGE)).cars);
@@ -43,7 +48,8 @@ function App() {
 
   return (
     <div className="App">
-        <Table />
+        <Table setMode={SetModalMode} modalActive={modalActive} SetModalActive={SetModalActive} />
+        <ModalWindow  mode={modalMode} modalActive={modalActive} SetModalActive={SetModalActive}/>
     </div>
   );
 }
