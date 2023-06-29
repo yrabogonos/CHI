@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux";
-import CarsReducer from "./cars-reducers";
+import CarsReducer, { setPageActionCreator } from "./cars-reducers";
 
 
 
@@ -10,6 +10,7 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers);
+
 
 
 export default store;

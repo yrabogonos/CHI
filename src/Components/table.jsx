@@ -1,28 +1,20 @@
+
+import { setPageActionCreator } from '../Redux/cars-reducers';
 import StoreContext from '../StoreContext';
 import './table.scss';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-const MAX = 10;
+
 
 
 const Table = () =>{
     const [cur_page, Setcur_page] = useState(0);
-    const context = useContext(StoreContext);
-    const state = context.getState();
-   
-
-
     return(
        <StoreContext.Consumer>
         {
             (store) =>{
                 const state = store.getState();
-                let cars = state.cars.cars;
-                let cars_to_show = [];
-                for(let i = cur_page*MAX; i< cur_page*MAX + MAX; i++){
-                    cars_to_show.push(state.cars.cars[i])
-                }
-                console.log('To show:',cars_to_show)
+                let cars = state.cars.toShow;
                 return(
                     <section className='table-container'>
                         <table className='table'>
@@ -44,10 +36,25 @@ const Table = () =>{
                            
                         
                         </table>
-                    {/* <div className="table-cntrl">
-                        <button onClick={Setcur_page(cur_page+1)}>next</button>
-                        <button onClick={Setcur_page(cur_page-1)}>prev</button>
-                    </div> */}
+                    <div className="table-cntrl">
+                        <button onClick={()=>{
+                            if(cur_page < state.cars.maxPages-1){
+                                Setcur_page(cur_page+1);
+                                store.dispatch(setPageActionCreator(cur_page+1));
+                            }
+                            else{
+                                alert('End of Table')
+                            }
+                            
+                        }}>next</button>
+                       <button onClick={()=>{
+                            if(cur_page > 0){
+                                Setcur_page(cur_page-1);
+                                store.dispatch(setPageActionCreator(cur_page-1));
+                            }
+                           
+                        }}>prev</button>
+                    </div>
                     </section>
                 );
             }
