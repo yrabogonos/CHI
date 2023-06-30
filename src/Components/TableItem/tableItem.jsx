@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import StoreContext from "../../StoreContext";
-import { setIdToDeleteActionCreator } from "../../Redux/cars-reducers";
+import { setIdToDeleteActionCreator, setObjToEditActionCreator } from "../../Redux/cars-reducers";
 
 const TableItem = (props)=>{
     const context = useContext(StoreContext);
@@ -17,6 +17,7 @@ const TableItem = (props)=>{
                 <button onClick={()=>{
                     props.SetModalActive(true);
                     props.setMode('Edit');
+                    context.dispatch(setObjToEditActionCreator(props.object))
                 }}>edit</button>
                 <button onClick={()=>{
                     props.SetModalActive(true);

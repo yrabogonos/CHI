@@ -45,7 +45,7 @@ const Table = (props) =>{
                                            <th>Availability</th>
                                            <th>Actions columns</th>
                                          </tr>
-                                         {cars.map(car => <TableItem id={car.id} setMode={props.setMode} modalActive={props.modalActive} SetModalActive={props.SetModalActive} company={car.car} model={car.car_model} vin={car.car_vin} color={car.car_color} year={car.car_model_year} price={car.price} availability={car.availability} />)}
+                                         {cars.map(car => <TableItem object={car} id={car.id} setMode={props.setMode} modalActive={props.modalActive} SetModalActive={props.SetModalActive} company={car.car} model={car.car_model} vin={car.car_vin} color={car.car_color} year={car.car_model_year} price={car.price} availability={car.availability} />)}
                                         
                                          
                                      </tbody>
@@ -99,7 +99,7 @@ const Table = (props) =>{
                                            <th>Availability</th>
                                            <th>Actions columns</th>
                                          </tr>
-                                         {cars.map(car => <TableItem id={car.id} setMode={props.setMode} modalActive={props.modalActive} SetModalActive={props.SetModalActive} company={car.car} model={car.car_model} vin={car.car_vin} color={car.car_color} year={car.car_model_year} price={car.price} availability={car.availability} />)}
+                                         {cars.map(car => <TableItem object={car} id={car.id} setMode={props.setMode} modalActive={props.modalActive} SetModalActive={props.SetModalActive} company={car.car} model={car.car_model} vin={car.car_vin} color={car.car_color} year={car.car_model_year} price={car.price} availability={car.availability} />)}
                                         
                                          
                                      </tbody>

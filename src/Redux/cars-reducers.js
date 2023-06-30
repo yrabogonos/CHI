@@ -9,6 +9,9 @@ const MAX = 10;
 const SEARCH = 'SEARCH';
 const DELETE = 'DELETE';
 const SET_ID_TO_DELETE = 'SET-ID-TO-DELETE';
+const SET_OBJ_TO_EDIT = 'SET-OBJ-TO-EDIT';
+const EDIT = 'EDIT';
+
 
 let initialState =  {
     cars:[
@@ -16,14 +19,17 @@ let initialState =  {
     ],
     toShow: [],
     maxPages: NaN,
+  
     searching: {
         cars:[
         
         ],
         toShow: [],
         maxPages: NaN,
+      
     },
-    idToDelete: NaN
+    idToDelete: NaN,
+    objToEdit: {}
 
  
 }
@@ -38,7 +44,9 @@ const CarsReducer = (state = initialState, action) => {
             state.maxPages =Math.round(state.cars.length / MAX);
             return state;
         case SET_CUR_PAGE: 
+          
             state.toShow = state.cars.slice(action.page*MAX, action.page*MAX+MAX);
+           
             return state;
         case SEARCH: 
             console.log('Search State:', state)
@@ -49,7 +57,8 @@ const CarsReducer = (state = initialState, action) => {
             console.log('Test',state.searching.cars.slice(0, MAX))
             return state;
         case SET_SER_PAGE: 
-            state.searching.toShow = state.searching.cars.slice(action.page*MAX, action.page*MAX+MAX)
+            state.searching.toShow = state.searching.cars.slice(action.page*MAX, action.page*MAX+MAX);
+           
             return state;
         case DELETE:
             console.log('State:', state)
@@ -65,6 +74,33 @@ const CarsReducer = (state = initialState, action) => {
         case SET_ID_TO_DELETE:
             state.idToDelete = action.id;
             return state;
+
+        case SET_OBJ_TO_EDIT:
+            console.log('From Set:', state)
+            
+            state.objToEdit = action.object;
+            return state;
+        case EDIT:
+            console.log('From Edit:', state)
+           
+            for(let i =0; i< state.cars; i++){
+                if(state.cars[i].id === state.objToEdit.id){
+                    console.log('yes')
+                    state.cars[i] = state.objToEdit;
+                }
+            }
+            // for(let i =0; i< state.toShow; i++){
+            //     if(state.toShow[i].id === state.objToEdit.id){
+            //         console.log('yes')
+            //         state.toShow[i] = state.objToEdit;
+            //     }
+            // }
+            // for(let i =0; i< state.searching.toShow; i++){
+            //     if(state.searching.toShow[i].id === state.objToEdit.id){
+            //         console.log('yes')
+            //         state.searching.toShow[i] = state.objToEdit;
+            //     }
+            // }
       
         default:
             return state;
@@ -113,6 +149,17 @@ export const setIdToDeleteActionCreator = (id) => {
        
     }
 }
-
+export const setObjToEditActionCreator = (object) => {
+    return{
+        type: SET_OBJ_TO_EDIT,
+        object: object
+    }
+}
+export const editActionCreator = () => {
+    return{
+        type: EDIT
+        
+    }
+}
 
 export default CarsReducer;
