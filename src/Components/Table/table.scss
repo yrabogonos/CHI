@@ -1,12 +1,74 @@
+$LightViolet: rgb(105, 116, 146);
+
 .table{
     border: 1px solid black;
     th{
         text-align: center;
         border: 1px solid black;
+        background-color: $LightViolet;
+        color: white;
 
     }
     td{
         text-align: center;
         border: 1px solid black;
+    
     }
+}
+.search-title{
+    height: 70px;
+    background-color: $LightViolet;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    text-transform: uppercase;
+    color: white;
+}
+.search-select{
+    font-size: 20px;
+    border: none;
+    padding-right: 4px;
+    margin-right: 20px;
+}
+.table-search{
+    input{
+        padding-left: 10px;
+    }
+    button{
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        margin-left: 10px;
+        background: $LightViolet;
+        
+    }
+}
+.btn-prev{
+    background: url('../../assets/icons/arrow-left.png');
+    background-size: contain;
+    border: none;
+    height: 50px;
+    width: 50px;
+
+}
+.btn-next{
+    background: url('../../assets/icons/arrow-right.png');
+    background-size: contain;
+    border: none;
+    height: 50px;
+    width: 50px;
+}
+.addCar{
+    border: none;
+    background-color: $LightViolet;
+    color: white;
+    padding: 5px 10px;
+}
+.homeBtn{
+    background: url('../../assets/icons/return.png');
+    background-size: contain;
+    border: none;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
 }

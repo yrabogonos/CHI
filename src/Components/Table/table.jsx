@@ -7,11 +7,13 @@ import TableItem from '../TableItem/tableItem';
 
 
 
+
 const Table = (props) =>{
     const [cur_page, Setcur_page] = useState(0);
     const [ser_page, Setser_page] = useState(0);
     const [mode, Setmode] = useState('All');
     const company = useRef();
+    const select = useRef(); 
     
     switch(mode){
         case 'All':
@@ -25,14 +27,22 @@ const Table = (props) =>{
                          return(
                              <section className='table-container'>
                                  <div className="table-search mb-4">
-                                     <h4 className='mt-3'>Search</h4>
-                                     <label htmlFor="company">Company:</label>
-                                     <input ref={company} id='company' type="text" />
+                                     <h4 className='mt-3 search-title'>Search</h4>
+                                     <select className='search-select' ref={select} name="cars" id="cars">
+                                      <option value="company">Company</option>
+                                      <option value="model">Model</option>
+                                      <option value="year">Year</option>
+                                    </select>
+                                     <input ref={company} id='company' type="text" placeholder='Enter a value'/>
                                      <button onClick={()=>{
-                                         store.dispatch(searchActionCreator(company.current.value));
+                                        
+                                         
+                                         store.dispatch(searchActionCreator(String(select.current.value),company.current.value));
                                          Setmode('Search');
                                      }} className='search-btn'>Search</button>
+                                     
                                  </div>
+                               
                                  <table className='table'>
                                      <tbody>
                                          <tr>
@@ -52,25 +62,29 @@ const Table = (props) =>{
                                     
                                  
                                  </table>
-                             <div className="table-cntrl">
-                                 <button onClick={()=>{
-                                     if(cur_page < state.cars.maxPages-1){
-                                         Setcur_page(cur_page+1);
-                                         store.dispatch(setPageActionCreator(cur_page+1));
-                                     }
-                                     else{
-                                         alert('End of Table')
-                                     }
-                                     
-                                 }}>next</button>
-                                <button onClick={()=>{
+                             <div className="table-cntrl d-flex gap-2">
+                                <button className='btn-prev' onClick={()=>{
                                      if(cur_page > 0){
                                          Setcur_page(cur_page-1);
                                          store.dispatch(setPageActionCreator(cur_page-1));
                                      }
                                     
-                                 }}>prev</button>
+                                 }}></button>
+                                 <button className='btn-next' onClick={()=>{
+                                    if(cur_page < state.cars.maxPages-1){
+                                        Setcur_page(cur_page+1);
+                                        store.dispatch(setPageActionCreator(cur_page+1));
+                                    }
+                                    else{
+                                        alert('End of Table')
+                                    }
+                                    
+                                }}></button>
                              </div>
+                             <button className='mt-3 addCar' onClick={()=>{
+                                  props.SetModalActive(true);
+                                  props.setMode('Add');
+                             }}>Add car</button>
                              </section>
                          );
                      }
@@ -86,7 +100,7 @@ const Table = (props) =>{
                          let cars = state.cars.searching.toShow;
                          return(
                              <section className='table-container'>
-                                 <h3>Results of searching:</h3>
+                                 <h3 className='search-title mb-5'>Results of searching:</h3>
                                  <table className='table'>
                                      <tbody>
                                          <tr>
@@ -106,28 +120,28 @@ const Table = (props) =>{
                                     
                                  
                                  </table>
-                             <div className="table-cntrl">
-                                 <button onClick={()=>{
-                                     if(ser_page < state.cars.searching.maxPages-1){
-                                         Setser_page(ser_page+1);
-                                         store.dispatch(setSearchingPageActionCreator(ser_page+1));
-                                     }
-                                     else{
-                                         alert('End of Table')
-                                     }
-                                     
-                                 }}>next</button>
-                                <button onClick={()=>{
+                             <div className="table-cntrl d-flex align-items-center gap-2">
+                                <button className='btn-prev' onClick={()=>{
                                      if(ser_page > 0){
                                         Setser_page(ser_page-1);
                                          store.dispatch(setSearchingPageActionCreator(ser_page-1));
                                      }
                                     
-                                 }}>prev</button>
-                                 <button onClick={()=>{
+                                 }}></button>
+                                <button className='btn-next' onClick={()=>{
+                                    if(ser_page < state.cars.searching.maxPages-1){
+                                        Setser_page(ser_page+1);
+                                        store.dispatch(setSearchingPageActionCreator(ser_page+1));
+                                    }
+                                    else{
+                                        alert('End of Table')
+                                    }
+                                    
+                                }}></button>
+                                 <button className='homeBtn' onClick={()=>{
                                     Setmode('All');
                                     Setser_page(0);
-                                 }}>Home</button>
+                                 }}></button>
                              </div>
                              </section>
                          );

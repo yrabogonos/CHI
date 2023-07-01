@@ -20,7 +20,8 @@ const fetchData = async() =>{
     })
     .then(data => {
       if(!localStorage.getItem(STORAGE)){
-        console.log('Storage is loading')
+        console.log('Storage is loading');
+        data.cars =data.cars.slice(0,20);    //!!!
         localStorage.setItem(STORAGE, JSON.stringify(data));
       }
       else{

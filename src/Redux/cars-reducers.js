@@ -11,6 +11,7 @@ const DELETE = 'DELETE';
 const SET_ID_TO_DELETE = 'SET-ID-TO-DELETE';
 const SET_OBJ_TO_EDIT = 'SET-OBJ-TO-EDIT';
 const EDIT = 'EDIT';
+const ADD = 'ADD';
 
 
 let initialState =  {
@@ -41,7 +42,7 @@ const CarsReducer = (state = initialState, action) => {
 
         case SET_INITIAL_STATE: 
             state.cars = action.cars;
-            state.maxPages =Math.round(state.cars.length / MAX);
+            state.maxPages =Math.ceil(state.cars.length / MAX);
             return state;
         case SET_CUR_PAGE: 
           
@@ -49,11 +50,29 @@ const CarsReducer = (state = initialState, action) => {
            
             return state;
         case SEARCH: 
-            console.log('Search State:', state)
-            let results = state.cars.filter(car => car.car === action.company);
-            state.searching.cars = results;
-            state.searching.maxPages =Math.round(state.searching.cars.length / MAX);
-            state.searching.toShow = state.searching.cars.slice(0, MAX)
+            console.log('Search State:', state);
+            let results;
+            switch(action.field){
+              
+                case 'company':
+                    results = state.cars.filter(car => car.car === action.value);
+                    state.searching.cars = results;
+                    state.searching.maxPages =Math.ceil(state.searching.cars.length / MAX);
+                    state.searching.toShow = state.searching.cars.slice(0, MAX);
+                    break;
+                case 'model':
+                    results = state.cars.filter(car => car.car_model === action.value);
+                    state.searching.cars = results;
+                    state.searching.maxPages =Math.ceil(state.searching.cars.length / MAX);
+                    state.searching.toShow = state.searching.cars.slice(0, MAX);
+                    break;
+                case 'year':
+                    results = state.cars.filter(car => car.car_model_year == action.value);
+                    state.searching.cars = results;
+                    state.searching.maxPages =Math.ceil(state.searching.cars.length / MAX);
+                    state.searching.toShow = state.searching.cars.slice(0, MAX);
+                    break;
+            }
             console.log('Test',state.searching.cars.slice(0, MAX))
             return state;
         case SET_SER_PAGE: 
@@ -76,19 +95,18 @@ const CarsReducer = (state = initialState, action) => {
             return state;
 
         case SET_OBJ_TO_EDIT:
-            console.log('From Set:', state)
-            
             state.objToEdit = action.object;
+            console.log('From Set:', state)
             return state;
         case EDIT:
-            console.log('From Edit:', state)
-           
             for(let i =0; i< state.cars; i++){
                 if(state.cars[i].id === state.objToEdit.id){
-                    console.log('yes')
                     state.cars[i] = state.objToEdit;
+                    break;
                 }
             }
+            console.log('From Edit:', state)
+            return state;
             // for(let i =0; i< state.toShow; i++){
             //     if(state.toShow[i].id === state.objToEdit.id){
             //         console.log('yes')
@@ -101,7 +119,11 @@ const CarsReducer = (state = initialState, action) => {
             //         state.searching.toShow[i] = state.objToEdit;
             //     }
             // }
-      
+        case ADD:
+            state.cars.push(action.object);
+            state.maxPages =Math.ceil(state.cars.length / MAX);
+            console.log('From Add:', state)
+            return state;
         default:
             return state;
      }
@@ -128,10 +150,11 @@ export const setSearchingPageActionCreator = (page) => {
        
     }
 }
-export const searchActionCreator = (company) => {
+export const searchActionCreator = (field, value) => {
     return {
         type: SEARCH,
-        company: company
+        field:field,
+        value: value
        
     }
 }
@@ -159,6 +182,12 @@ export const editActionCreator = () => {
     return{
         type: EDIT
         
+    }
+}
+export const addObjActionCreator = (object) => {
+    return{
+        type: ADD,
+        object: object
     }
 }
 

@@ -1,0 +1,31 @@
+.edit-btn{
+    background: url('../../assets/icons/edit.png');
+    background-size: contain;
+    border: none;
+    height: 30px;
+    width: 30px;
+    &:hover{
+        transform: scale(1.1);
+    }
+   
+}
+.delete-btn{
+    background: url('../../assets/icons/delete.png');
+    background-size: contain;
+    border: none;
+    height: 30px;
+    width: 30px;
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+.red {
+    background-color: red !important;
+    text-transform: capitalize;
+    
+}
+.green{
+    background-color: green !important;
+    text-transform: capitalize;
+ 
+}

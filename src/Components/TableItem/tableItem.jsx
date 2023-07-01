@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import StoreContext from "../../StoreContext";
 import { setIdToDeleteActionCreator, setObjToEditActionCreator } from "../../Redux/cars-reducers";
+import './tableItem.scss';
 
 const TableItem = (props)=>{
     const context = useContext(StoreContext);
+    const [av] = useState(props.availability);
     return(
         <tr>
           <td>{props.company}</td>
@@ -12,19 +14,19 @@ const TableItem = (props)=>{
           <td>{props.color}</td>
           <td>{props.year}</td>
           <td>{props.price}</td>
-          <td>{String(props.availability)}</td>
-          <td className='item-cntrls'>
-                <button onClick={()=>{
+          <td className={av == true? "green": "red"}>{String(props.availability)}</td>
+          <td className='item-cntrls d-flex align-items-center justify-content-center gap-4'>
+                <button className="edit-btn" onClick={()=>{
                     props.SetModalActive(true);
                     props.setMode('Edit');
-                    context.dispatch(setObjToEditActionCreator(props.object))
-                }}>edit</button>
-                <button onClick={()=>{
+                    context.dispatch(setObjToEditActionCreator(props.object));
+                }}></button>
+                <button className="delete-btn" onClick={()=>{
                     props.SetModalActive(true);
                     props.setMode('Delete');
-                    context.dispatch(setIdToDeleteActionCreator(props.id))
+                    context.dispatch(setIdToDeleteActionCreator(props.id));
 
-                }}>delete</button>
+                }}></button>
           </td>
         </tr>
     );
