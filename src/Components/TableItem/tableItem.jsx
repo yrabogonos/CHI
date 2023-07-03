@@ -5,6 +5,7 @@ import './tableItem.scss';
 
 const TableItem = (props)=>{
     const context = useContext(StoreContext);
+    console.log('av',typeof props.availability)
     return(
         <tr>
           <td>{props.company}</td>

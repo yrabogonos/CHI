@@ -41,7 +41,7 @@ const ModalWindow = (props) =>{
                     colorAdd.current.value = '';
                     yearAdd.current.value = '';
                     priceAdd.current.value = '';
-                    avAdd.current.value = '';
+                    avAdd.current.value = true;
                     props.SetModalActive(false);
                   
                 }}>
@@ -88,38 +88,15 @@ const ModalWindow = (props) =>{
                                 <div className="d-flex gap-2">
                                     <span>Availability:</span>
                                     <div className="add-input d-flex gap-2">
-                                        <input ref={avAdd} type="text"/>
+                                        <select ref={avAdd} className="availability">
+                                            <option value='true'>Yes</option>
+                                            <option value='false'>No</option>
+                                        </select>
                                     </div>
                                 </div>
-                                
-                                {/* <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="model">Model:</label>
-                                    <input ref={modelAdd} id="model" type="text"  />
-                                </div>
-                                <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="vin">VIN code:</label>
-                                    <input ref={vinAdd} id="vin" type="text" />
-                                </div>
-                                <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="color">Color:</label>
-                                    <input ref={colorAdd} id="color" type="text" />
-                                </div>
-                                <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="year">Year:</label>
-                                    <input ref={yearAdd} id="year" type="text"  />
-                                </div>
-                                <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="price">Price:</label>
-                                    <input ref={priceAdd} id="price" type="text"  />
-                                </div>
-                                <div className="edit-item d-flex gap-2">
-                                    <label htmlFor="av">Availability:</label>
-                                    <input ref={avAdd} id="av" type="text"  />
-                                    
-                                </div> */}
                                 <button className="add-btn" onClick={()=>{
                                      let object = {
-                                        availability: avAdd.current.value,
+                                        availability: avAdd.current.value ==='true'? true: false,
                                         car: companyAdd.current.value,
                                         car_color: colorAdd.current.value,
                                         car_model: modelAdd.current.value,
@@ -128,6 +105,7 @@ const ModalWindow = (props) =>{
                                         price: priceAdd.current.value,
                                         id: state.cars.cars.slice(-1)[0].id +1,
                                      }
+                                     console.log('Obj', object)
                                      context.dispatch(addObjActionCreator(object));
                                      localStorage.setItem('cars', JSON.stringify(state.cars));
                                      companyAdd.current.value = '';
@@ -136,7 +114,7 @@ const ModalWindow = (props) =>{
                                      colorAdd.current.value = '';
                                      yearAdd.current.value = '';
                                      priceAdd.current.value = '';
-                                     avAdd.current.value = '';
+                                     avAdd.current.value = true;
                                      props.SetModalActive(false);
                                 }}>Add a car</button>
                             </div>
@@ -203,14 +181,14 @@ const ModalWindow = (props) =>{
                                 </div>
                                 <div className="edit-item d-flex gap-2">
                                     <label htmlFor="av">Availability:</label>
-                                    <MemoryInput reference={av} id="av" val={state.cars.objToEdit.availability}/>
+                                    <MemorySelect reference={av} id="av" val={state.cars.objToEdit.availability}/>
                                     
                                 </div>
                                 <button onClick={()=>{
                                      let object = state.cars.objToEdit;
                                      object.car_color = colorRef.current.value;
                                      object.price = price.current.value;
-                                     object.availability = av.current.value;
+                                     object.availability= av.current.value.toLowerCase() ==='true'? true: false;
     
                             
                                      context.dispatch(setObjToEditActionCreator(object));
@@ -241,16 +219,42 @@ function MemoryInput(props) {
         setInputValue(props.val)
     },[props.val])
     
-  
     return (
-      <input
-        ref={props.reference}
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        id={props.id}
-       
-      />
-    );
+        <input
+          ref={props.reference}
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          id={props.id}
+         
+        />
+      );
+   
+  }
+  function MemorySelect(props) {
+    const [inputValue, setInputValue] = useState(props.val);
+   
+ 
+    const handleChange = (e) => {
+      setInputValue(e.target.value);
+    };
+
+    useEffect(()=>{
+        setInputValue(props.val)
+    },[props.val])
+    
+    return (
+        <select
+          ref={props.reference}
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          id={props.id}>
+            <option value='true'>Yes</option>
+            <option value='false'>No</option>
+         
+        </select>
+      );
+   
   }
 export default ModalWindow;

@@ -21,7 +21,8 @@ const fetchData = async() =>{
     .then(data => {
       if(!localStorage.getItem(STORAGE)){
         console.log('Storage is loading');
-        data.cars =data.cars.slice(0,20);    //!!!
+        // data.cars =data.cars.slice(0,20);    //!!!
+        data.cars =data.cars;    
         localStorage.setItem(STORAGE, JSON.stringify(data));
       }
       else{
