@@ -5,7 +5,6 @@ import './tableItem.scss';
 
 const TableItem = (props)=>{
     const context = useContext(StoreContext);
-    const [av] = useState(props.availability);
     return(
         <tr>
           <td>{props.company}</td>
@@ -14,7 +13,7 @@ const TableItem = (props)=>{
           <td>{props.color}</td>
           <td>{props.year}</td>
           <td>{props.price}</td>
-          <td className={av == true? "green": "red"}>{String(props.availability)}</td>
+          <td className={props.availability? "green": "red"}>{String(props.availability)}</td>
           <td className='item-cntrls d-flex align-items-center justify-content-center gap-4'>
                 <button className="edit-btn" onClick={()=>{
                     props.SetModalActive(true);
