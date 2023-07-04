@@ -22,14 +22,6 @@ const ModalWindow = (props) =>{
 
     const test = useRef();
     
-//    function clear(){
-//     window.onlo
-//    }
-   
-   
-
-    // console.log('!!!', state.cars.cars.slice(-1)[0].id)
-
     switch(props.mode){
         case "Add":
       

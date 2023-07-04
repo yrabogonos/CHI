@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import store from './Redux/redux-store';
 import { setInitialStateActionCreator, setPageActionCreator } from './Redux/cars-reducers';
 import ModalWindow from './Components/modal/modal';
+import preloader from './assets/gif/preloader.gif';
 
 const STORAGE = 'cars';
 
@@ -21,7 +22,6 @@ const fetchData = async() =>{
     .then(data => {
       if(!localStorage.getItem(STORAGE)){
         console.log('Storage is loading');
-        // data.cars =data.cars.slice(0,20);    //!!!
         data.cars =data.cars;    
         localStorage.setItem(STORAGE, JSON.stringify(data));
       }
@@ -36,24 +36,41 @@ function App() {
 
   const [modalActive, SetModalActive] = useState(false);
   const [modalMode, SetModalMode] = useState();
+  const [isLoading, SetLoading] = useState(true);
  
 
   const loadData = async() => {
     const response = await fetchData();
     const cars = (JSON.parse(localStorage.getItem(STORAGE)).cars);
     store.dispatch(setInitialStateActionCreator(cars));
-    store.dispatch(setPageActionCreator(0))
+    store.dispatch(setPageActionCreator(0));
+    SetLoading(false);
   }
    useEffect(()=>{
     loadData();
    }, [])
 
-  return (
-    <div className="App">
-        <Table setMode={SetModalMode} modalActive={modalActive} SetModalActive={SetModalActive} />
-        <ModalWindow  mode={modalMode} modalActive={modalActive} SetModalActive={SetModalActive}/>
-    </div>
-  );
+   if(isLoading){
+    return (
+      <div className="App">
+          <div className='preloader d-flex flex-column'>
+            
+              <img className='preload-gif' src={preloader} alt='preloader' />
+              <p>Page is loading...</p>
+          </div>
+      </div>
+    );
+   }
+   else{
+    return (
+      <div className="App">
+          <Table setMode={SetModalMode} modalActive={modalActive} SetModalActive={SetModalActive} />
+          <ModalWindow  mode={modalMode} modalActive={modalActive} SetModalActive={SetModalActive}/>
+      </div>
+    );
+   }
+
+  
 }
 
 export default App;

@@ -23,7 +23,6 @@ const Table = (props) =>{
                      (store) =>{
                          const state = store.getState();
                          let cars = state.cars.toShow;
-                        //  console.log(cars.id)
                          return(
                              <section className='table-container'>
                                  <div className="table-search mb-4">
@@ -155,22 +154,4 @@ const Table = (props) =>{
    
    
 }
-
-// const TableItem = (props)=>{
-//     return(
-//         <tr>
-//           <td>{props.company}</td>
-//           <td>{props.model}</td>
-//           <td>{props.vin}</td>
-//           <td>{props.color}</td>
-//           <td>{props.year}</td>
-//           <td>{props.price}</td>
-//           <td>{String(props.availability)}</td>
-//           <td className='item-cntrls'>
-//                 <button>edit</button>
-//                 <button>delete</button>
-//           </td>
-//         </tr>
-//     );
-// }
 export default Table;

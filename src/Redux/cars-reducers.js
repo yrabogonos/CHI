@@ -1,7 +1,3 @@
-const ADD_ITEM = 'ADD-ITEM';
-const REM_ITEM = 'REM_ITEM';
-const LOAD_TO_DEL =  'LOAD-TO-DEL';
-const CLEAR_LOAD_TO_DEL = 'CLEAR-LOAD-TO-DEL';
 const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
 const SET_CUR_PAGE = 'SET-CUR-PAGE';
 const SET_SER_PAGE = 'SET-SEARCHING-PAGE';
@@ -45,12 +41,9 @@ const CarsReducer = (state = initialState, action) => {
             state.maxPages =Math.ceil(state.cars.length / MAX);
             return state;
         case SET_CUR_PAGE: 
-          
             state.toShow = state.cars.slice(action.page*MAX, action.page*MAX+MAX);
-           
             return state;
         case SEARCH: 
-            console.log('Search State:', state);
             let results;
             switch(action.field){
               
@@ -73,22 +66,14 @@ const CarsReducer = (state = initialState, action) => {
                     state.searching.toShow = state.searching.cars.slice(0, MAX);
                     break;
             }
-            console.log('Test',state.searching.cars.slice(0, MAX))
             return state;
         case SET_SER_PAGE: 
             state.searching.toShow = state.searching.cars.slice(action.page*MAX, action.page*MAX+MAX);
-           
             return state;
         case DELETE:
-            console.log('State:', state)
-
             state.cars = state.cars.filter(car => car.id != state.idToDelete);
             state.toShow = state.toShow.filter(car => car.id != state.idToDelete);
             state.searching.toShow = state.searching.toShow.filter(car => car.id != state.idToDelete);
-
-            // state.toShow = state.cars.slice(action.page*MAX, action.page*MAX+MAX)
-
-            console.log('After State:', state)
             return state;
         case SET_ID_TO_DELETE:
             state.idToDelete = action.id;
@@ -96,7 +81,6 @@ const CarsReducer = (state = initialState, action) => {
 
         case SET_OBJ_TO_EDIT:
             state.objToEdit = action.object;
-            console.log('From Set:', state)
             return state;
         case EDIT:
             for(let i =0; i< state.cars; i++){
@@ -105,24 +89,10 @@ const CarsReducer = (state = initialState, action) => {
                     break;
                 }
             }
-            console.log('From Edit:', state)
             return state;
-            // for(let i =0; i< state.toShow; i++){
-            //     if(state.toShow[i].id === state.objToEdit.id){
-            //         console.log('yes')
-            //         state.toShow[i] = state.objToEdit;
-            //     }
-            // }
-            // for(let i =0; i< state.searching.toShow; i++){
-            //     if(state.searching.toShow[i].id === state.objToEdit.id){
-            //         console.log('yes')
-            //         state.searching.toShow[i] = state.objToEdit;
-            //     }
-            // }
         case ADD:
             state.cars.push(action.object);
             state.maxPages =Math.ceil(state.cars.length / MAX);
-            console.log('From Add:', state)
             return state;
         default:
             return state;

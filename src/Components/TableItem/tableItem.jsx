@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import StoreContext from "../../StoreContext";
 import { setIdToDeleteActionCreator, setObjToEditActionCreator } from "../../Redux/cars-reducers";
 import './tableItem.scss';
 
 const TableItem = (props)=>{
     const context = useContext(StoreContext);
-    console.log('av',typeof props.availability)
     return(
         <tr>
           <td>{props.company}</td>
