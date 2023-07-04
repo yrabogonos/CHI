@@ -24,6 +24,7 @@ You can also search cars by selecting category from drop-down near the input, wh
 For better view of application, I added some styles, icons for getting better experiance, using my app.
 8. Preloader
 Added preloader, while page is loading.
+9. Deployed on GitHub pages
 All requirements was fulfilled, and I`m looking forward for a positive feedback :)
 
 ## Contacts
